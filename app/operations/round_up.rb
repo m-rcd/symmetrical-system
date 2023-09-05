@@ -21,7 +21,7 @@ class RoundUp
 
   def call
     raise RuntimeError, "No transactions for that period" if transactions.empty?
-    
+
     transactions.each do |transaction|
       amount = transaction['amount']['minorUnits']
       @round_up += (amount / 100.0).ceil * 100 - amount
@@ -37,9 +37,5 @@ class RoundUp
    @transactions ||= StarlingApi::Transactions.fetch(account_uid:, category_uid:, min_date:, max_date:).select do |feed_item|
       feed_item['direction'] == 'OUT'
     end
-  end
-
-  def transfer_to_saving_goal
-    TransferToSavingGoal.call(account_uid: account['accountUid'], amount: round_up)
   end
 end

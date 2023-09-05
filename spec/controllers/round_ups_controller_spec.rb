@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe RoundUpsController, type: :controller do
-  describe 'GET /index' do
+  describe 'POST /round_up' do
     let(:expected_response) do
       { 'round_up_amount' => '100 pence (£1.00)' }.to_json
     end
@@ -21,7 +21,7 @@ RSpec.describe RoundUpsController, type: :controller do
       end
 
       it 'returns http success' do
-        get :index
+        post :round_up
         expect(response).to have_http_status(:success)
         expect(response.body).to eq(expected_response)
       end
@@ -39,7 +39,7 @@ RSpec.describe RoundUpsController, type: :controller do
       end
 
       it 'returns http an error' do
-        get :index
+        get :round_up
         expect(response.body).to eq(expected_response)
       end
     end
@@ -47,7 +47,7 @@ RSpec.describe RoundUpsController, type: :controller do
 
   describe 'POST /transfer' do
     let(:expected_response) do
-      { 'round_up_amount' => '100 pence (£1.00)', 'transfer_uid' => 'transferUid' }.to_json
+      { 'round_up_amount' => '100 pence (£1.00)', 'transfer_uid' => 'qwerty' }.to_json
     end
     before do
       expect(StarlingApi::Account).to receive(:fetch).and_return([{ 'accountUid' => 'abc',

@@ -3,8 +3,8 @@
 class RoundUpsController < ApplicationController
   protect_from_forgery with: :null_session
 
-  def index
-    render :json => index_json
+  def round_up
+    render :json => round_up_json
   rescue StandardError => e 
     render json: { error: e }
   end
@@ -42,7 +42,7 @@ class RoundUpsController < ApplicationController
     account['defaultCategory']
   end
 
-  def index_json 
+  def round_up_json 
    {
      "round_up_amount" => formatted_round_up_amount
    }.to_json
@@ -51,7 +51,7 @@ class RoundUpsController < ApplicationController
   def transfer_json
     {
       "round_up_amount" => formatted_round_up_amount,
-      "transfer_uid" => @transfer["transferUid"]
+      "transfer_uid" =>  JSON.parse(@transfer)["transferUid"]
     }.to_json
   end
 
