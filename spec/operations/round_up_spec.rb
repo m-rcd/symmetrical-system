@@ -156,10 +156,22 @@ RSpec.describe RoundUp do
     min_date = DateTime.new(2023, 9,0o3).beginning_of_week
     expect(StarlingApi::Transactions).to receive(:fetch).with(
       account_uid:, category_uid:, min_date:, max_date: min_date + 6
-    ).and_return(transactions)
+    ).and_return(transactions_query_response)
   end
 
-  it 'rounds up the amount from out transactions only' do
-    expect(subject).to eq(139)
+  context "when transactions for that period exist" do 
+    let(:transactions_query_response) { transactions }
+
+    it 'rounds up the amount from out transactions only' do
+      expect(subject).to eq(139)
+    end
+  end
+
+  context "when transactions for that period do not exist" do 
+    let(:transactions_query_response) { [] }
+
+    it "raises an error" do 
+      expect { subject }.to raise_error(RuntimeError,  "No transactions for that period")
+    end
   end
 end

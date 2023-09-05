@@ -5,6 +5,12 @@ class RoundUp
   MAX_DATE = MIN_DATE + 6
   private_constant :MIN_DATE, :MAX_DATE
 
+  class << self 
+    def call(account_uid:, category_uid:, min_date: MIN_DATE, max_date: MAX_DATE)
+      new(account_uid:, category_uid:, min_date:, max_date:).call
+    end
+  end
+
   def initialize(account_uid:, category_uid:, min_date: MIN_DATE, max_date: MAX_DATE)
     @account_uid = account_uid
     @category_uid = category_uid
@@ -15,6 +21,7 @@ class RoundUp
 
   def call
     raise RuntimeError, "No transactions for that period" if transactions.empty?
+    
     transactions.each do |transaction|
       amount = transaction['amount']['minorUnits']
       @round_up += (amount / 100.0).ceil * 100 - amount
