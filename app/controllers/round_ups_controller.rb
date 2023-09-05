@@ -19,7 +19,7 @@ class RoundUpsController < ApplicationController
   private
 
   def round_up_amount
-    @round_up_amount ||= RoundUp.new(account_uid:, category_uid:, min_date:, max_date:).call
+    @round_up_amount ||= RoundUp.call(account_uid:, category_uid:, min_date:, max_date:)
   end
 
   def account

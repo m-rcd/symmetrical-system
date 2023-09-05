@@ -10,7 +10,7 @@ class TransferToSavingGoal
     def call(account_uid:, amount:)
       new(account_uid:, amount:).call
     end
-end
+  end
 
   def call 
     create_saving_goal
