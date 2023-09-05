@@ -9,7 +9,7 @@ module StarlingApi
       MAX_DATE = DateTime.now.end_of_week
       private_constant :MIN_DATE, :MAX_DATE
 
-      def fetch(account_uid, category_uid, min_date: MIN_DATE, max_date: MAX_DATE)
+      def fetch(account_uid:, category_uid:, min_date: MIN_DATE, max_date: MAX_DATE)
         transactions(account_uid, category_uid, min_date, max_date)['feedItems']
       end
 
