@@ -153,9 +153,9 @@ RSpec.describe RoundUp do
   end
 
   before do
+    min_date = DateTime.new(2023, 9,0o3).beginning_of_week
     expect(StarlingApi::Transactions).to receive(:fetch).with(
-      account_uid:, category_uid:, min_date: DateTime.new(2023, 9,
-                                                          0o3).beginning_of_week, max_date: DateTime.now.end_of_week
+      account_uid:, category_uid:, min_date:, max_date: min_date + 6
     ).and_return(transactions)
   end
 

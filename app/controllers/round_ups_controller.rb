@@ -4,14 +4,16 @@ class RoundUpsController < ApplicationController
   protect_from_forgery with: :null_session
 
   def index
-    @round_up = round_up_amount
     render :json => index_json
+  rescue StandardError => e 
+    render json: { error: e }
   end
 
   def transfer
-    @round_up_amount = round_up_amount
     @transfer = TransferToSavingGoal.call(account_uid:, amount: round_up_amount)
     render :json => transfer_json
+  rescue StandardError => e 
+    render json: { error: e }
   end
 
   private
@@ -25,15 +27,15 @@ class RoundUpsController < ApplicationController
   end
 
   def account_uid
-    account['accountUid']
+    post_params["account_uid"] || account['accountUid']
   end
 
   def min_date
-    @min_date ||= DateTime.new(2023, 9, 0o3).beginning_of_week
+    @min_date ||= (post_params["min_date"] || "02/09/2023").to_datetime
   end
 
   def max_date
-    @max_date ||= DateTime.new(2023, 9, 0o3).end_of_week
+    @max_date ||= (post_params["max_date"] || min_date + 6).to_datetime
   end
 
   def category_uid
@@ -42,14 +44,22 @@ class RoundUpsController < ApplicationController
 
   def index_json 
    {
-     "round_up" => @round_up
+     "round_up_amount" => formatted_round_up_amount
    }.to_json
   end
 
   def transfer_json
     {
-      "round_up_amount" => round_up_amount,
+      "round_up_amount" => formatted_round_up_amount,
       "transfer_uid" => @transfer["transferUid"]
     }.to_json
+  end
+
+  def formatted_round_up_amount
+    @formatted_round_up_amount ||= "#{round_up_amount} pence (£#{Money.new(round_up_amount, "GBP")})"
+  end
+
+  def post_params
+    params.permit(:account_uid, :min_date, :max_date)
   end
 end

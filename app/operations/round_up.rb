@@ -2,7 +2,7 @@
 
 class RoundUp
   MIN_DATE = DateTime.new(2023, 9, 0o3).beginning_of_week
-  MAX_DATE = DateTime.now.end_of_week
+  MAX_DATE = MIN_DATE + 6
   private_constant :MIN_DATE, :MAX_DATE
 
   def initialize(account_uid:, category_uid:, min_date: MIN_DATE, max_date: MAX_DATE)
@@ -14,6 +14,7 @@ class RoundUp
   end
 
   def call
+    raise RuntimeError, "No transactions for that period" if transactions.empty?
     transactions.each do |transaction|
       amount = transaction['amount']['minorUnits']
       @round_up += (amount / 100.0).ceil * 100 - amount
@@ -26,7 +27,7 @@ class RoundUp
   attr_accessor :account_uid, :category_uid, :min_date, :max_date, :round_up
 
   def transactions
-    StarlingApi::Transactions.fetch(account_uid:, category_uid:, min_date:, max_date:).select do |feed_item|
+   @transactions ||= StarlingApi::Transactions.fetch(account_uid:, category_uid:, min_date:, max_date:).select do |feed_item|
       feed_item['direction'] == 'OUT'
     end
   end
