@@ -3,6 +3,7 @@
 class RoundUpsController < ApplicationController
   def index
     @round_up = RoundUp.new(account_uid:, category_uid:, min_date:, max_date:).call
+    render :json => index_json
   end
 
   private
@@ -25,5 +26,11 @@ class RoundUpsController < ApplicationController
 
   def category_uid
     account['defaultCategory']
+  end
+
+  def index_json 
+   {
+     "round_up" => @round_up
+   }.to_json
   end
 end
