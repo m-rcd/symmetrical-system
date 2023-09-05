@@ -8,10 +8,10 @@ class RoundUpsController < ApplicationController
     render :json => index_json
   end
 
-  def create
+  def transfer
     @round_up_amount = round_up_amount
     @transfer = TransferToSavingGoal.call(account_uid:, amount: round_up_amount)
-    render :json => create_json
+    render :json => transfer_json
   end
 
   private
@@ -46,7 +46,7 @@ class RoundUpsController < ApplicationController
    }.to_json
   end
 
-  def create_json
+  def transfer_json
     {
       "round_up_amount" => round_up_amount,
       "transfer_uid" => @transfer["transferUid"]
