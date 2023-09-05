@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module StarlingApi
-  module Account
+  module Accounts
     extend BaseApi
 
     class << self

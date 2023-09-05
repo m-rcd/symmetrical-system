@@ -23,7 +23,7 @@ class RoundUpsController < ApplicationController
   end
 
   def account
-    @account ||= StarlingApi::Account.fetch.first
+    @account ||= StarlingApi::Accounts.fetch.first
   end
 
   def account_uid
