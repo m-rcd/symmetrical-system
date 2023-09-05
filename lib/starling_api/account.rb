@@ -6,7 +6,7 @@ module StarlingApi
 
     class << self
       def fetch 
-        account["accounts"].first
+        account["accounts"]
       end
 
       private
