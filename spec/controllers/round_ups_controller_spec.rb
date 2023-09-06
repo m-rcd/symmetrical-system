@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe RoundUpsController, type: :controller do
-  describe 'POST /round_up' do
+  describe 'GET /round_up' do
     let(:expected_response) do
       { 'round_up_amount' => '100 pence (£1.00)' }.to_json
     end
@@ -21,7 +21,7 @@ RSpec.describe RoundUpsController, type: :controller do
       end
 
       it 'returns http success' do
-        post :round_up
+        get :round_up
         expect(response).to have_http_status(:success)
         expect(response.body).to eq(expected_response)
       end

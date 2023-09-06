@@ -5,12 +5,12 @@ require 'rails_helper'
 RSpec.describe 'Acceptance', type: :request do
   before { WebMock.allow_net_connect! }
 
-  describe 'POST /round_up' do
+  describe 'GET /round_up' do
     let(:expected_response) do
       { 'round_up_amount' => '1500 pence (£15.00)' }.to_json
     end
 
-    before { post '/round_up' }
+    before { get '/round_up' }
 
     it 'returns correct response' do
       expect(response).to have_http_status(:success)
