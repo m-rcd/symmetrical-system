@@ -64,7 +64,7 @@ I could have used Ruby and [Rack](https://github.com/rack/rack) to implement thi
   The response will look like:
 
   ```
-  {'round_up_amount':'1351 pence (£13.51)','transfer_uid':'bf0f9563-4d81-4dbd-9a68-8c7f126e207d'}
+  {'round_up_amount':'1351','transfer_uid':'bf0f9563-4d81-4dbd-9a68-8c7f126e207d'}
   ```
 
  As I was only working with one account for this exercise and the transactions are all in the same period, the `account_uid` and dates (`min_date` and `max_date`) have default values if not sent in the request. 
@@ -92,7 +92,7 @@ I could have used Ruby and [Rack](https://github.com/rack/rack) to implement thi
   Response will look like: 
 
   ```
-   {'round_up_amount':'1351 pence (£13.51)'}
+   {'round_up_amount':'1351'}
   ```
 
   Same as `transfer`, the `account_uid` and dates (`min_date` and `max_date`) have default values and can be sent in the request. 
