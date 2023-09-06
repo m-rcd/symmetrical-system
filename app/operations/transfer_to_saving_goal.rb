@@ -13,8 +13,7 @@ class TransferToSavingGoal
   end
 
   def call 
-    create_saving_goal
-    transfer_to_saving_goal
+    create_saving_goal.tap { |saving_goal| transfer_to_saving_goal(saving_goal['savingsGoalUid']) }
   end
 
   private 
@@ -22,11 +21,11 @@ class TransferToSavingGoal
   attr_reader :account_uid, :amount
 
   def create_saving_goal
-    @saving_goal ||= StarlingApi::SavingGoal.create(account_uid)
+    StarlingApi::SavingGoal.create(account_uid)
   end
 
-  def transfer_to_saving_goal
-    StarlingApi::SavingGoal.transfer_money(account_uid, @saving_goal['savingsGoalUid'], amount)
+  def transfer_to_saving_goal(saving_goal_uid)
+    StarlingApi::SavingGoal.transfer_money(account_uid, saving_goal_uid, amount)
   end
 
 end
