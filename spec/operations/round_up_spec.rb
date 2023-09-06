@@ -3,10 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe RoundUp do
-  subject { described_class.new(account_uid:, category_uid:).call }
+  subject { described_class.new(account_uid:, category_uid:, min_date:, max_date:).call }
 
   let(:account_uid)  { 'dg7394c6-88bb-49c4-9615-ec94b28e1cafs' }
   let(:category_uid) { 'abc279f7-ddda-4faa-8c33-e60c14922b06' }
+  let(:min_date) { DateTime.new(2023, 9, 0o3).beginning_of_week }
+  let(:max_date) { min_date + 6 }
 
   let(:out_transaction_1) do
     { 'feedItemUid' => 'c41bc370-81b9-4a55-af2c-282b75b1d2bd',
@@ -153,13 +155,12 @@ RSpec.describe RoundUp do
   end
 
   before do
-    min_date = DateTime.new(2023, 9,0o3).beginning_of_week
     expect(StarlingApi::Transactions).to receive(:fetch).with(
-      account_uid:, category_uid:, min_date:, max_date: min_date + 6
+      account_uid:, category_uid:, min_date:, max_date:
     ).and_return(transactions_query_response)
   end
 
-  context 'when transactions for that period exist' do 
+  context 'when transactions for that period exist' do
     let(:transactions_query_response) { transactions }
 
     it 'rounds up the amount from out transactions only' do
@@ -167,11 +168,11 @@ RSpec.describe RoundUp do
     end
   end
 
-  context 'when transactions for that period do not exist' do 
+  context 'when transactions for that period do not exist' do
     let(:transactions_query_response) { [] }
 
-    it 'raises an error' do 
-      expect { subject }.to raise_error(RuntimeError,  'No transactions for that period')
+    it 'raises an error' do
+      expect { subject }.to raise_error(RuntimeError, 'No transactions for that period')
     end
   end
 end
