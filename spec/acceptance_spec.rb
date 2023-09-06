@@ -7,7 +7,7 @@ RSpec.describe 'Acceptance', type: :request do
 
   describe 'GET /round_up' do
     let(:expected_response) do
-      { 'round_up_amount' => '1500 pence (£15.00)' }.to_json
+      { 'round_up_amount' => '1500' }.to_json
     end
 
     before { get '/round_up' }
@@ -23,7 +23,7 @@ RSpec.describe 'Acceptance', type: :request do
 
     it 'returns correct response' do
       expect(response).to have_http_status(:success)
-      expect(JSON.parse(response.body)['round_up_amount']).to eq('1500 pence (£15.00)')
+      expect(JSON.parse(response.body)['round_up_amount']).to eq('1500')
     end
   end
 end

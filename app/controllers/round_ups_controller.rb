@@ -28,15 +28,15 @@ class RoundUpsController < ApplicationController
   end
 
   def account_uid
-    post_params['account_uid'] || account['accountUid']
+    request_params['account_uid'] || account['accountUid']
   end
 
   def min_date
-    @min_date ||= (post_params['min_date'] || '02/09/2023').to_datetime
+    @min_date ||= (request_params['min_date'] || '02/09/2023').to_datetime
   end
 
   def max_date
-    @max_date ||= (post_params['max_date'] || min_date + 6).to_datetime
+    @max_date ||= (request_params['max_date'] || min_date + 6).to_datetime
   end
 
   def category_uid
@@ -45,22 +45,18 @@ class RoundUpsController < ApplicationController
 
   def round_up_json 
    {
-     'round_up_amount' => formatted_round_up_amount
+     'round_up_amount' => round_up_amount.to_s
    }.to_json
   end
 
   def transfer_json
     {
-      'round_up_amount' => formatted_round_up_amount,
+      'round_up_amount' => round_up_amount.to_s,
       'transfer_uid' =>  @transfer['transferUid']
     }.to_json
   end
 
-  def formatted_round_up_amount
-    @formatted_round_up_amount ||= "#{round_up_amount} pence (£#{Money.new(round_up_amount, 'GBP')})"
-  end
-
-  def post_params
+  def request_params
     params.permit(:account_uid, :min_date, :max_date)
   end
 end

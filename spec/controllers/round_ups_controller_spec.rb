@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe RoundUpsController, type: :controller do
   describe 'GET /round_up' do
     let(:expected_response) do
-      { 'round_up_amount' => '100 pence (£1.00)' }.to_json
+      { 'round_up_amount' => '100' }.to_json
     end
 
     before do
@@ -31,6 +31,7 @@ RSpec.describe RoundUpsController, type: :controller do
       let(:expected_response) do
         { 'error' => 'No transactions for that period' }.to_json
       end
+
       before do
         min_date = '02/09/2023'.to_datetime
         expect(RoundUp).to receive(:call).with(
@@ -47,7 +48,7 @@ RSpec.describe RoundUpsController, type: :controller do
 
   describe 'POST /transfer' do
     let(:expected_response) do
-      { 'round_up_amount' => '100 pence (£1.00)', 'transfer_uid' => 'qwerty' }.to_json
+      { 'round_up_amount' => '100', 'transfer_uid' => 'qwerty' }.to_json
     end
     before do
       expect(StarlingApi::Accounts).to receive(:fetch).and_return([{ 'accountUid' => 'abc',
