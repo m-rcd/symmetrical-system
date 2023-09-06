@@ -13,6 +13,7 @@ class RoundUpsController < ApplicationController
     @transfer = TransferToSavingGoal.call(account_uid:, amount: round_up_amount)
     render :json => transfer_json
   rescue StandardError => e 
+    binding.pry
     render json: { error: e }
   end
 
@@ -51,7 +52,7 @@ class RoundUpsController < ApplicationController
   def transfer_json
     {
       "round_up_amount" => formatted_round_up_amount,
-      "transfer_uid" =>  JSON.parse(@transfer)["transferUid"]
+      "transfer_uid" =>  @transfer["transferUid"]
     }.to_json
   end
 

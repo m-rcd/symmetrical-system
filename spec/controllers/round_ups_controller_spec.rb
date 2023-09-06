@@ -57,7 +57,7 @@ RSpec.describe RoundUpsController, type: :controller do
         account_uid: 'abc', category_uid: 'cde', min_date:, max_date: min_date + 6
       ).and_return(100)
       expect(TransferToSavingGoal).to receive(:call).with(account_uid: 'abc', amount: 100).and_return(
-        { 'transferUid' => 'qwerty' }.to_json
+        { 'transferUid' => 'qwerty' }
       )
     end
 
