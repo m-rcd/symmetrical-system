@@ -27,11 +27,11 @@ module StarlingApi
 
       def create_body
         {
-          "name": 'Trip to the arctic',
-          "currency": 'GBP',
-          "target": {
-            "currency": 'GBP',
-            "minorUnits": 0
+          'name': 'Trip to the arctic',
+          'currency': 'GBP',
+          'target': {
+            'currency': 'GBP',
+            'minorUnits': 0
           }
         }.to_json
       end
@@ -50,9 +50,9 @@ module StarlingApi
 
       def add_money_body(amount)
         {
-          "amount": {
-            "currency": 'GBP',
-            "minorUnits": amount
+          'amount': {
+            'currency': 'GBP',
+            'minorUnits': amount
           }
         }.to_json
       end

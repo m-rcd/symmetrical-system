@@ -26,7 +26,7 @@ class TransferToSavingGoal
   end
 
   def transfer_to_saving_goal
-    StarlingApi::SavingGoal.transfer_money(account_uid, @saving_goal["savingsGoalUid"], amount)
+    StarlingApi::SavingGoal.transfer_money(account_uid, @saving_goal['savingsGoalUid'], amount)
   end
 
 end

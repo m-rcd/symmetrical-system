@@ -5,10 +5,10 @@ module StarlingApi
     class << self
       def api_call(method, url, query: {}, body: {})
         response = HTTParty.send(method, url, headers:, query:, body:)
-
+        
         return parse_response(response.body) if response.success?
 
-        raise "#{response.code}: #{response_errors(response)}"
+        raise "#{response.code}: #{response_errors(parse_response(response))}"
       end
 
       def parse_response(response)
@@ -18,7 +18,7 @@ module StarlingApi
       private
 
       def response_errors(response)
-        response["error_description"] || response["errors"].map { |error| error["message"] } 
+        response['error_description'] || response['errors'].map { |error| error['message'] } 
       end
 
       def headers

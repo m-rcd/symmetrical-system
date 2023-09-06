@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe StarlingApi::Accounts do
   subject { described_class.fetch }
-  
+
   let(:headers) do
     {
       'Accept' => 'application/json',
@@ -13,18 +13,18 @@ RSpec.describe StarlingApi::Accounts do
     }.compact
   end
 
-  describe '#fetch' do
+  context 'when token is provided' do
     let(:authorization) { "Bearer #{Rails.configuration.access_token}" }
     let(:body) do
       {
-        "accounts": [
+        'accounts': [
           {
-            "accountUid": 'be7290c6-88bb-49c4-9615-ec94b28e1c4fs',
-            "accountType": 'PRIMARY',
-            "defaultCategory": 'be7279f7-ddda-4faa-8c33-e60c14922b06',
-            "currency": 'GBP',
-            "createdAt": '2023-09-03T15:14:04.066Z',
-            "name": 'Personal'
+            'accountUid': 'be7290c6-88bb-49c4-9615-ec94b28e1c4fs',
+            'accountType': 'PRIMARY',
+            'defaultCategory': 'be7279f7-ddda-4faa-8c33-e60c14922b06',
+            'currency': 'GBP',
+            'createdAt': '2023-09-03T15:14:04.066Z',
+            'name': 'Personal'
           }
         ]
       }
@@ -58,11 +58,11 @@ RSpec.describe StarlingApi::Accounts do
     end
   end
 
-  context 'when token is not provided' do
+  context 'when token is not provided' do 
     let(:body) do
       {
-        "error": 'invalid_token',
-        "error_description": 'No access token provided in request. `Header: Authorization` must be set '
+        'error': 'invalid_token',
+        'error_description': 'No access token provided in request. `Header: Authorization` must be set '
       }
     end
     let(:authorization) { 'Bearer' }

@@ -20,7 +20,7 @@ class RoundUp
   end
 
   def call
-    raise RuntimeError, "No transactions for that period" if transactions.empty?
+    raise RuntimeError, 'No transactions for that period' if transactions.empty?
 
     transactions.each do |transaction|
       amount = transaction['amount']['minorUnits']

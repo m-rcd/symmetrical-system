@@ -56,7 +56,7 @@ For a customer, the transactions are rounded up to the nearest pound and this am
   Response will look like: 
 
   ```JSON
-  {"round_up_amount":"1351 pence (£13.51)"}
+  {'round_up_amount':'1351 pence (£13.51)'}
   ```
 
   Since there is only one account and the transactions are all recent, the `account_uid` and dates (`min_date` and `max_date`) have default values if not sent in the request. 
@@ -67,7 +67,7 @@ For a customer, the transactions are rounded up to the nearest pound and this am
   However, they can also be sent in the request like so: 
  
    ```
-   curl -X POST http://localhost:3000/round_up -d "account_uid=<account_uid>" -d "min_date=<min_date>" -d "max_date=<max_date>"
+   curl -X POST http://localhost:3000/round_up -d 'account_uid=<account_uid>' -d 'min_date=<min_date>' -d 'max_date=<max_date>'
    ```
 
    `min_date` and `max_date` should be in the `dd/mm/year` format. 
@@ -82,13 +82,13 @@ For a customer, the transactions are rounded up to the nearest pound and this am
   The response will look like:
 
   ```JSON
-  {"round_up_amount":"1351 pence (£13.51)","transfer_uid":"bf0f9563-4d81-4dbd-9a68-8c7f126e207d"}
+  {'round_up_amount':'1351 pence (£13.51)','transfer_uid':'bf0f9563-4d81-4dbd-9a68-8c7f126e207d'}
   ```
   
   Same as `round_up`, the `account_uid` and dates (`min_date` and `max_date`) have default values and can be sent in the request. 
 
    ```
-   curl -X POST http://localhost:3000/transfer -d "account_uid=<account_uid>" -d "min_date=<min_date>" -d "max_date=<max_date>"
+   curl -X POST http://localhost:3000/transfer -d 'account_uid=<account_uid>' -d 'min_date=<min_date>' -d 'max_date=<max_date>'
    ```
   This will create a new saving goal and transfer the round up money to this new goal.
 

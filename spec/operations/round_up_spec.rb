@@ -159,7 +159,7 @@ RSpec.describe RoundUp do
     ).and_return(transactions_query_response)
   end
 
-  context "when transactions for that period exist" do 
+  context 'when transactions for that period exist' do 
     let(:transactions_query_response) { transactions }
 
     it 'rounds up the amount from out transactions only' do
@@ -167,11 +167,11 @@ RSpec.describe RoundUp do
     end
   end
 
-  context "when transactions for that period do not exist" do 
+  context 'when transactions for that period do not exist' do 
     let(:transactions_query_response) { [] }
 
-    it "raises an error" do 
-      expect { subject }.to raise_error(RuntimeError,  "No transactions for that period")
+    it 'raises an error' do 
+      expect { subject }.to raise_error(RuntimeError,  'No transactions for that period')
     end
   end
 end
