@@ -41,7 +41,7 @@ I could have used Ruby and [Rack](https://github.com/rack/rack) to implement thi
   ```
   cp env.template env
   # edit the new file
-  ACCESS_TOKEN=<access_token>
+  # ACCESS_TOKEN=<access_token>
   ```
 
 
@@ -75,15 +75,16 @@ I could have used Ruby and [Rack](https://github.com/rack/rack) to implement thi
   However, they can also be sent in the request like so: 
   
    ```
-   curl -X POST http://localhost:3000/transfer 
-          -d 'account_uid=<account_uid>' 
-          -d 'min_date=<min_date>' 
-          -d 'max_date=<max_date>'
+   curl -X POST http://localhost:3000/transfer \
+          -d 'account_uid=<account_uid>' \
+          -d 'min_date=<min_date>' \
+          -d 'max_date=<max_date>' 
    ```
-    `min_date` and `max_date` should be in the `dd/mm/year` format. 
+  
+  `min_date` and `max_date` should be in the `dd/mm/year` format. 
 
 
-- To get just the round up amount, without putting it into a savings goal, run the following command in a different terminal:
+- To get just the round up amount, without putting it into a savings goal, run the following command in the terminal:
 
   ```
   curl -X GET http://localhost:3000/round_up
@@ -98,9 +99,9 @@ I could have used Ruby and [Rack](https://github.com/rack/rack) to implement thi
   Same as `transfer`, the `account_uid` and dates (`min_date` and `max_date`) have default values and can be sent in the request. 
  
    ```
-   curl -X GET http://localhost:3000/round_up 
-            -d 'account_uid=<account_uid>' 
-            -d 'min_date=<min_date>' 
+   curl -X GET http://localhost:3000/round_up \
+            -d 'account_uid=<account_uid>' \
+            -d 'min_date=<min_date>' \
             -d 'max_date=<max_date>'
    ```
 
