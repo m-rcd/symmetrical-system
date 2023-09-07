@@ -127,10 +127,14 @@ _`POST /transfer`  fullfills the requirements of this feature (gets the round_up
 
 ## Approach
 
-- I started by implementing an interface for Starling API. One for each resource (`Accounts`, `Transactions` and `SavingGoal`).
-- I then implemented classes that I will need to implement the feature:
+- I decided to have an interface to deal with the interaction with Starling API which would allow me to test the requests in isolation and have a nice layer of separation between my logic and the Starling Bank API.
+- The user will only interact with the controller which acts as a single point of entry and is responsible of delegating the request to the correct class. 
+- As for the logic, I split it into two classes, `RoundUp` and `TransferMoneyToSavingGoal`, which each have their own responsibility.
    - `RoundUp` class which fetches the transactions for a week using `Transactions` interface, selects the out transactions and rounds up the amount to the nearest pound.
    - `TransferMoneyToSavingGoal` creates a new saving goal and then transfers the money to this new saving goal using the `SavingGoal` interface.
-- I then created the routes `transfer` and `round_up`. 
 
 
+## Improvements
+
+- The Starling Bank API interface currently has no validations for the data sent to Starling API. Having them would raise an error before making an unnecessary call to Starling API.
+- The `RoundUp` class currently fetches the transactions, selects the out transactions then calculates the round up amount. This could be split up even further by moving the fetching of the transactions to its own class and sending those transactions into the `RoundUp` class. This would allow this class to be more general and reused if needed for any use when expanding. 
