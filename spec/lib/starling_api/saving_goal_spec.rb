@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'securerandom'
 
 RSpec.describe StarlingApi::SavingGoal do
   subject { described_class }
-  require 'securerandom'
 
   let(:headers) do
     {
@@ -42,7 +42,7 @@ RSpec.describe StarlingApi::SavingGoal do
       )
     end
 
-    it 'returns the saving_goal uid' do
+    it 'creates a saving goal' do
       expect(subject.create(account_uid)).to match(response_body)
       subject
     end
@@ -50,8 +50,15 @@ RSpec.describe StarlingApi::SavingGoal do
 
   describe '#fetch' do
     let(:response_body) do
-      { 'savingsGoalUid' => '44e3dedf-e800-4f04-8c13-3ddc8d4437fc', 'name' => 'Trip to the arctic',
-        'totalSaved' => { 'currency' => 'GBP', 'minorUnits' => 0 }, 'state' => 'ACTIVE' }
+      {
+        'savingsGoalUid' => '44e3dedf-e800-4f04-8c13-3ddc8d4437fc',
+        'name' => 'Trip to the arctic',
+        'totalSaved' => {
+          'currency' => 'GBP',
+          'minorUnits' => 0
+        },
+        'state' => 'ACTIVE'
+      }
     end
 
     let(:saving_goal_uid) { '44e3dedf-e800-4f04-8c13-3ddc8d4437fc' }

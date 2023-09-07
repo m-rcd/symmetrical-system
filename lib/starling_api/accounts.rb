@@ -5,13 +5,13 @@ module StarlingApi
     extend BaseApi
 
     class << self
-      def fetch 
-        account['accounts']
+      def fetch
+        accounts['accounts']
       end
 
       private
 
-      def account
+      def accounts
         BaseApi.api_call(:get, 'https://api-sandbox.starlingbank.com/api/v2/accounts')
       end
     end

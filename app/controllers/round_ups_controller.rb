@@ -3,16 +3,18 @@
 class RoundUpsController < ApplicationController
   protect_from_forgery with: :null_session
 
+  # GET /round_up
   def round_up
-    render :json => round_up_json
-  rescue StandardError => e 
+    render json: round_up_json
+  rescue StandardError => e
     render json: { error: e }
   end
 
+  # POST /transfer
   def transfer
     @transfer = TransferToSavingGoal.call(account_uid:, amount: round_up_amount)
-    render :json => transfer_json
-  rescue StandardError => e 
+    render json: transfer_json
+  rescue StandardError => e
     render json: { error: e }
   end
 
@@ -42,16 +44,14 @@ class RoundUpsController < ApplicationController
     account['defaultCategory']
   end
 
-  def round_up_json 
-   {
-     'round_up_amount' => round_up_amount.to_s
-   }.to_json
+  def round_up_json
+    { 'round_up_amount' => round_up_amount.to_s }.to_json
   end
 
   def transfer_json
     {
       'round_up_amount' => round_up_amount.to_s,
-      'transfer_uid' =>  @transfer['transferUid']
+      'transfer_uid' => @transfer['transferUid']
     }.to_json
   end
 

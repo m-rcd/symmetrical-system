@@ -146,14 +146,6 @@ RSpec.describe RoundUp do
       'batchPaymentDetails' => nil }
   end
 
-  let(:transactions) do
-    [out_transaction_1, out_transaction_2, out_transaction_3, out_transaction_4, in_transaction_1, in_transaction_2]
-  end
-
-  let(:out_transactions) do
-    [out_transaction_1, out_transaction_2, out_transaction_3, out_transaction_4]
-  end
-
   before do
     expect(StarlingApi::Transactions).to receive(:fetch).with(
       account_uid:, category_uid:, min_date:, max_date:
@@ -161,7 +153,9 @@ RSpec.describe RoundUp do
   end
 
   context 'when transactions for that period exist' do
-    let(:transactions_query_response) { transactions }
+    let(:transactions_query_response) do
+      [out_transaction_1, out_transaction_2, out_transaction_3, out_transaction_4, in_transaction_1, in_transaction_2]
+    end
 
     it 'rounds up the amount from out transactions only' do
       expect(subject).to eq(139)

@@ -52,13 +52,13 @@ RSpec.describe StarlingApi::Accounts do
       )
     end
 
-    it 'returns the account' do
+    it 'returns the accounts' do
       expect(subject).to match(expected_accounts)
       subject
     end
   end
 
-  context 'when token is not provided' do 
+  context 'when token is not provided' do
     let(:body) do
       {
         'error': 'invalid_token',

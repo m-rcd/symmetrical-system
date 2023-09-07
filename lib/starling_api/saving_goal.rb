@@ -17,7 +17,7 @@ module StarlingApi
 
       def transfer_money(account_uid, saving_goal_uid, amount)
         BaseApi.api_call(:put, add_money_url(account_uid, saving_goal_uid), body: add_money_body(amount))
-    end
+      end
 
       private
 
