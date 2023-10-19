@@ -10,11 +10,11 @@ RSpec.describe TransferToSavingGoal do
   let(:saving_goal) { { 'savingsGoalUid' => 'cde-456' } }
 
   before do
-    expect(StarlingApi::SavingGoal).to receive(:create).with(account_uid).and_return(saving_goal)
+    expect(BankApi::SavingGoal).to receive(:create).with(account_uid).and_return(saving_goal)
   end
 
   it 'transfers the money to a new saving goal' do
-    expect(StarlingApi::SavingGoal).to receive(:transfer_money).with(account_uid, saving_goal['savingsGoalUid'], amount)
+    expect(BankApi::SavingGoal).to receive(:transfer_money).with(account_uid, saving_goal['savingsGoalUid'], amount)
     subject
   end
 end

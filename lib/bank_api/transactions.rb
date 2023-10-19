@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module StarlingApi
+module BankApi
   module Transactions
     extend BaseApi
 
@@ -17,7 +17,7 @@ module StarlingApi
       end
 
       def url(account_uid, category_uid)
-        "https://api-sandbox.starlingbank.com/api/v2/feed/account/#{account_uid}/category/#{category_uid}/transactions-between"
+        "#{BaseApi.api_url}/feed/account/#{account_uid}/category/#{category_uid}/transactions-between"
       end
 
       def query(min_date, max_date)

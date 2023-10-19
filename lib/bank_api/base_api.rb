@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module StarlingApi
+module BankApi
   module BaseApi
     class << self
       def api_call(method, url, query: {}, body: {})
@@ -13,6 +13,10 @@ module StarlingApi
 
       def parse_response(response)
         JSON.parse(response)
+      end
+
+      def api_url 
+        Rails.configuration.bank_api_url
       end
 
       private

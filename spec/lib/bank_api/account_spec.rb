@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe StarlingApi::Accounts do
+RSpec.describe BankApi::Accounts do
   subject { described_class.fetch }
 
   let(:headers) do
@@ -44,7 +44,7 @@ RSpec.describe StarlingApi::Accounts do
     end
 
     before do
-      stub_request(:get, 'https://api-sandbox.starlingbank.com/api/v2/accounts').with(
+      stub_request(:get, "#{Rails.configuration.bank_api_url}/accounts").with(
         headers:
       ).to_return(
         body: body.to_json,
@@ -68,7 +68,7 @@ RSpec.describe StarlingApi::Accounts do
     let(:authorization) { 'Bearer' }
 
     before do
-      stub_request(:get, 'https://api-sandbox.starlingbank.com/api/v2/accounts').with(
+      stub_request(:get, "#{Rails.configuration.bank_api_url}/accounts").with(
         headers:
       ).to_return(
         body: body.to_json,

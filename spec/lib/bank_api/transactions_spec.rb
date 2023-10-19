@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe StarlingApi::Transactions do
+RSpec.describe BankApi::Transactions do
   subject { described_class.fetch(account_uid:, category_uid:, min_date:, max_date:) }
 
   let(:account_uid) { 'be7290c6-88bb-49c4-9615-ec94b28e1c4fs' }
@@ -117,7 +117,7 @@ RSpec.describe StarlingApi::Transactions do
     end
 
     before do
-      stub_request(:get, "https://api-sandbox.starlingbank.com/api/v2/feed/account/#{account_uid}/category/#{category_uid}/transactions-between").with(
+      stub_request(:get, "#{Rails.configuration.bank_api_url}/feed/account/#{account_uid}/category/#{category_uid}/transactions-between").with(
         headers:,
         query:
       ).to_return(
@@ -142,7 +142,7 @@ RSpec.describe StarlingApi::Transactions do
     let(:authorization) { 'Bearer' }
 
     before do
-      stub_request(:get, "https://api-sandbox.starlingbank.com/api/v2/feed/account/#{account_uid}/category/#{category_uid}/transactions-between").with(
+      stub_request(:get, "#{Rails.configuration.bank_api_url}/feed/account/#{account_uid}/category/#{category_uid}/transactions-between").with(
         headers:,
         query:
       ).to_return(

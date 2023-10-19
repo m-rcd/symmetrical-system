@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'securerandom'
 
-RSpec.describe StarlingApi::SavingGoal do
+RSpec.describe BankApi::SavingGoal do
   subject { described_class }
 
   let(:headers) do
@@ -33,7 +33,7 @@ RSpec.describe StarlingApi::SavingGoal do
     end
 
     before do
-      stub_request(:put, "https://api-sandbox.starlingbank.com/api/v2/account/#{account_uid}/savings-goals").with(
+      stub_request(:put, "#{Rails.configuration.bank_api_url}/account/#{account_uid}/savings-goals").with(
         headers:,
         body: request_body.to_json
       ).to_return(
@@ -64,7 +64,7 @@ RSpec.describe StarlingApi::SavingGoal do
     let(:saving_goal_uid) { '44e3dedf-e800-4f04-8c13-3ddc8d4437fc' }
 
     before do
-      stub_request(:get, "https://api-sandbox.starlingbank.com/api/v2/account/#{account_uid}/savings-goals/#{saving_goal_uid}").with(
+      stub_request(:get, "#{Rails.configuration.bank_api_url}/account/#{account_uid}/savings-goals/#{saving_goal_uid}").with(
         headers:
       ).to_return(
         body: response_body.to_json,
@@ -98,7 +98,7 @@ RSpec.describe StarlingApi::SavingGoal do
 
     before do
       expect(SecureRandom).to receive(:uuid).and_return(transfer_uid)
-      stub_request(:put, "https://api-sandbox.starlingbank.com/api/v2/account/#{account_uid}/savings-goals/#{saving_goal_uid}/add-money/#{transfer_uid}").with(
+      stub_request(:put, "#{Rails.configuration.bank_api_url}/account/#{account_uid}/savings-goals/#{saving_goal_uid}/add-money/#{transfer_uid}").with(
         headers:,
         body: request_body.to_json
       ).to_return(
@@ -124,7 +124,7 @@ RSpec.describe StarlingApi::SavingGoal do
     let(:saving_goal_uid) { '44e3dedf-e800-4f04-8c13-3ddc8d4437fc' }
 
     before do
-      stub_request(:get, "https://api-sandbox.starlingbank.com/api/v2/account/#{account_uid}/savings-goals/#{saving_goal_uid}").with(
+      stub_request(:get, "#{Rails.configuration.bank_api_url}/account/#{account_uid}/savings-goals/#{saving_goal_uid}").with(
         headers:
       ).to_return(
         body: response_body.to_json,

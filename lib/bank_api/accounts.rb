@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module StarlingApi
+module BankApi
   module Accounts
     extend BaseApi
 
@@ -12,7 +12,7 @@ module StarlingApi
       private
 
       def accounts
-        BaseApi.api_call(:get, 'https://api-sandbox.starlingbank.com/api/v2/accounts')
+        BaseApi.api_call(:get, "#{BaseApi.api_url}/accounts")
       end
     end
   end

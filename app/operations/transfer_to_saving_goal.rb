@@ -21,10 +21,10 @@ class TransferToSavingGoal
   attr_reader :account_uid, :amount
 
   def create_saving_goal
-    StarlingApi::SavingGoal.create(account_uid)
+    BankApi::SavingGoal.create(account_uid)
   end
 
   def transfer_to_saving_goal(saving_goal_uid)
-    StarlingApi::SavingGoal.transfer_money(account_uid, saving_goal_uid, amount)
+    BankApi::SavingGoal.transfer_money(account_uid, saving_goal_uid, amount)
   end
 end

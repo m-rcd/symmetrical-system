@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module StarlingApi
+module BankApi
   module SavingGoal
     require 'securerandom'
 
@@ -22,7 +22,7 @@ module StarlingApi
       private
 
       def create_url(account_uid)
-        "https://api-sandbox.starlingbank.com/api/v2/account/#{account_uid}/savings-goals"
+        "#{BaseApi.api_url}/account/#{account_uid}/savings-goals"
       end
 
       def create_body
@@ -37,11 +37,11 @@ module StarlingApi
       end
 
       def get_url(account_uid, saving_goal_uid)
-        "https://api-sandbox.starlingbank.com/api/v2/account/#{account_uid}/savings-goals/#{saving_goal_uid}"
+        "#{BaseApi.api_url}/account/#{account_uid}/savings-goals/#{saving_goal_uid}"
       end
 
       def add_money_url(account_uid, saving_goal_uid)
-        "https://api-sandbox.starlingbank.com/api/v2/account/#{account_uid}/savings-goals/#{saving_goal_uid}/add-money/#{transfer_uid}"
+        "#{BaseApi.api_url}/account/#{account_uid}/savings-goals/#{saving_goal_uid}/add-money/#{transfer_uid}"
       end
 
       def transfer_uid

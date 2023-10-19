@@ -147,7 +147,7 @@ RSpec.describe RoundUp do
   end
 
   before do
-    expect(StarlingApi::Transactions).to receive(:fetch).with(
+    expect(BankApi::Transactions).to receive(:fetch).with(
       account_uid:, category_uid:, min_date:, max_date:
     ).and_return(transactions_query_response)
   end

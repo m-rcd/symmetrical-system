@@ -9,7 +9,7 @@ RSpec.describe RoundUpsController, type: :controller do
     end
 
     before do
-      expect(StarlingApi::Accounts).to receive(:fetch).and_return([{ 'accountUid' => 'abc',
+      expect(BankApi::Accounts).to receive(:fetch).and_return([{ 'accountUid' => 'abc',
                                                                     'defaultCategory' => 'cde' }])
     end
     context 'when transactions exist' do
@@ -51,7 +51,7 @@ RSpec.describe RoundUpsController, type: :controller do
       { 'round_up_amount' => '100', 'transfer_uid' => 'qwerty' }.to_json
     end
     before do
-      expect(StarlingApi::Accounts).to receive(:fetch).and_return([{ 'accountUid' => 'abc',
+      expect(BankApi::Accounts).to receive(:fetch).and_return([{ 'accountUid' => 'abc',
                                                                     'defaultCategory' => 'cde' }])
       min_date = '02/09/2023'.to_datetime
       expect(RoundUp).to receive(:call).with(

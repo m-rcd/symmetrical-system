@@ -34,7 +34,7 @@ class RoundUp
   end
 
   def transactions
-    @transactions ||= StarlingApi::Transactions.fetch(account_uid:, category_uid:, min_date:,
+    @transactions ||= BankApi::Transactions.fetch(account_uid:, category_uid:, min_date:,
                                                       max_date:).select do |feed_item|
       feed_item['direction'] == 'OUT'
     end

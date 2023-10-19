@@ -2,30 +2,31 @@
 
 class RoundUpsController < ApplicationController
   protect_from_forgery with: :null_session
-
+  rescue_from  StandardError, with: :show_error
+  
   # GET /round_up
   def round_up
     render json: round_up_json
-  rescue StandardError => e
-    render json: { error: e }
   end
 
   # POST /transfer
   def transfer
     @transfer = TransferToSavingGoal.call(account_uid:, amount: round_up_amount)
     render json: transfer_json
-  rescue StandardError => e
-    render json: { error: e }
   end
 
   private
+
+  def show_error(error)
+    render json: { error: error.message }
+  end
 
   def round_up_amount
     @round_up_amount ||= RoundUp.call(account_uid:, category_uid:, min_date:, max_date:)
   end
 
   def account
-    @account ||= StarlingApi::Accounts.fetch.first
+    @account ||= BankApi::Accounts.fetch.first
   end
 
   def account_uid
@@ -45,14 +46,14 @@ class RoundUpsController < ApplicationController
   end
 
   def round_up_json
-    { 'round_up_amount' => round_up_amount.to_s }.to_json
+    { 'round_up_amount' => round_up_amount.to_s }
   end
 
   def transfer_json
     {
       'round_up_amount' => round_up_amount.to_s,
       'transfer_uid' => @transfer['transferUid']
-    }.to_json
+    }
   end
 
   def request_params
