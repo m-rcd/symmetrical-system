@@ -71,7 +71,7 @@ The bank api url was added as an env variable to make it anonymous.
   {'round_up_amount':'1351','transfer_uid':'bf0f9563-4d81-4dbd-9a68-8c7f126e207d'}
   ```
 
- As I was only working with one account for this exercise and the transactions are all in the same period, the `account_uid` and dates (`min_date` and `max_date`) have default values if not sent in the request. 
+ As I was working with only one account for this exercise and the transactions are all in the same period, the `account_uid` and dates (`min_date` and `max_date`) have default values if not sent in the request. 
 
   The default value for `account_uid` comes from a call to random Bank API using the `Accounts` interface. It will use the first one in the collection returned.
   The default value for `min_date` and `max_date` are set to `02/09/2023` and `09/09/2023` respectively.
