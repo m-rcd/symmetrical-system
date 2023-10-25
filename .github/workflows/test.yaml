@@ -15,11 +15,12 @@ jobs:
       - name: Setup env
         env:
           API_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          URL: ${{ secrets.API_URL }}
           ENV_FILE: .env
         run: |
           cp .env.template "$ENV_FILE"
           sed -i "s|REPLACE_TOKEN|$API_TOKEN|g" "$ENV_FILE"
-          sed -i 's|REPLACE_URL|https://api-sandbox.starlingbank.com/api/v2|g' "$ENV_FILE"
+          sed -i "s|REPLACE_URL|$URL|g" "$ENV_FILE"
       - name: Bundle
         run: bundle install
       - name: Test
