@@ -40,7 +40,7 @@ I could have used Ruby and [Rack](https://github.com/rack/rack) to implement thi
 - Copy the `env.template` file and add your token:
 
   ```
-  cp env.template env
+  cp .env.template .env
   # edit the new file
   # ACCESS_TOKEN=<access_token>
   # BANK_API_URL=<bank_api_url>

@@ -1,0 +1,24 @@
+name: Build and Test
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
+      - name: Setup env
+        env:
+          API_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ENV_FILE: .env
+        run: |
+          cp .env.template "$ENV_FILE"
+          sed -i "s|REPLACE_TOKEN|$API_TOKEN|g" "$ENV_FILE"
+          sed -i 's|REPLACE_URL|https://api-sandbox.starlingbank.com/api/v2|g' "$ENV_FILE"
+      - name: Bundle
+        run: bundle install
+      - name: Test
+        run: bundle exec rspec
